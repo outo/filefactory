@@ -28,6 +28,10 @@ My mission was to provide (to myself originally) a declarative testing mechanism
 * defining what constitutes a relevant difference between a file definition and a real file (aka verification instruction)
 * inspection of the differences between file definition and a real file
 
+![Gopher image](docs/gophers.jpg)
+
+*Image by [Renee French](https://reneefrench.blogspot.com/), licensed under [Creative Commons 3.0 Attributions license](https://creativecommons.org/licenses/by/3.0/).*
+
 ## Features
 
 as per contents of examples_test.go and other tests, but few examples are put here for an overview.

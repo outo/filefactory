@@ -20,20 +20,13 @@ In its current shape, I would be careful to use it in production code for the fo
 avoid using it in production code. This function allows to change the value of package-level variable which can
 have undesirable effects if invoked during execution.   
 
-## Running tests
+## Mission
 
-I am using Ginkgo and Gomega for testing.
-To install them execute:
-```
-$ go get github.com/onsi/ginkgo/ginkgo
-$ go get github.com/onsi/gomega/...
-```
-
-Change the working directory to the root of this repo and use
-
-```
-$ ginkgo -r --randomizeAllSpecs --randomizeSuites --failOnPending --cover --trace --race --progress -p
-```
+My mission was to provide (to myself originally) a declarative testing mechanism to help with:
+* defining filesystem primitives, such as regular file, directory and symlink
+* defining most useful metainformation about the above file types (aka attributes)
+* defining what constitutes a relevant difference between a file definition and a real file (aka verification instruction)
+* inspection of the differences between file definition and a real file
 
 ## Features
 
@@ -307,6 +300,21 @@ There are few factors determining what attribute will be set on files. Attribute
 In this example factory was created so that it does not validate much more than file permissions (file presence and file type is always checked).
 That will apply to all definitions created with this factory. However, for symlink, normally I don't want to check the permissions.
 I can override the factory-level value with definition-level value just for this one definition.
+
+## Running tests
+
+I am using Ginkgo and Gomega for testing.
+To install them execute:
+```
+$ go get github.com/onsi/ginkgo/ginkgo
+$ go get github.com/onsi/gomega/...
+```
+
+Change the working directory to the root of this repo and use
+
+```
+$ ginkgo -r --randomizeAllSpecs --randomizeSuites --failOnPending --cover --trace --race --progress -p
+```
 
 ## Compatibility
 

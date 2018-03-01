@@ -30,10 +30,10 @@ var _ = Describe("pkg def file_regular.go unit test", func() {
 				return noError
 			}
 			modifyThis.OsLstat = func(name string) (os.FileInfo, error) {
-				return mock.NewFileInfo().WithSize(2736), noError
+				return mock.NewFileInfo().WithSize(20), noError
 			}
 			modifyThis.IoutilReadFile = func(filename string) ([]byte, error) {
-				return def.ProvidePseudoRandomBytes(2736, 18), noError
+				return def.ProvidePseudoRandomBytes(20, 18), noError
 			}
 		})
 	})
@@ -174,8 +174,8 @@ var _ = Describe("pkg def file_regular.go unit test", func() {
 			})
 
 			regular := def.Regular{}
-			regular.Path = "file"
-			regular.Size = 2736
+			regular.Path = "file-with-different-size"
+			regular.Size = 20
 			regular.Seed = 18
 			actualError := regular.Verify(expectedRoot)
 			Expect(actualError).Should(HaveOccurred())
@@ -184,7 +184,7 @@ var _ = Describe("pkg def file_regular.go unit test", func() {
 			Expect(actualVerificationErrors.Errors).To(HaveLen(2))
 			Expect(actualVerificationErrors.CombinedFileDifference).To(Equal(diff.ModTime | diff.Size))
 			Expect(actualVerificationErrors.HasDifference(diff.ModTime, "some path")).To(BeTrue())
-			Expect(actualVerificationErrors.HasDifference(diff.Size, filepath.Join(expectedRoot, "file"))).To(BeTrue())
+			Expect(actualVerificationErrors.HasDifference(diff.Size, filepath.Join(expectedRoot, "file-with-different-size"))).To(BeTrue())
 		})
 		It("will append error to VerificationErrors if contents are different", func() {
 			verificationErrors := verify.Errors{}
@@ -196,12 +196,13 @@ var _ = Describe("pkg def file_regular.go unit test", func() {
 					return &verificationErrors
 				}
 				modifyThis.IoutilReadFile = func(filename string) ([]byte, error) {
-					return def.ProvidePseudoRandomBytes(2736, 99199), noError
+					return def.ProvidePseudoRandomBytes(20, 99199), noError
 				}
 			})
 
 			regular := def.Regular{}
-			regular.Size = 2736
+			regular.Path = "file-with-different-contents"
+			regular.Size = 20
 			regular.Seed = 99999
 			actualError := regular.Verify(expectedRoot)
 			Expect(actualError).Should(HaveOccurred())
@@ -210,7 +211,7 @@ var _ = Describe("pkg def file_regular.go unit test", func() {
 			Expect(actualVerificationErrors.Errors).To(HaveLen(2))
 			Expect(actualVerificationErrors.CombinedFileDifference).To(Equal(diff.AccTime | diff.Contents))
 			Expect(actualVerificationErrors.HasDifference(diff.AccTime, "some path")).To(BeTrue())
-			Expect(actualVerificationErrors.HasDifference(diff.Contents, "")).To(BeTrue())
+			Expect(actualVerificationErrors.HasDifference(diff.Contents, filepath.Join(expectedRoot, "file-with-different-contents"))).To(BeTrue())
 		})
 		It("will return ioutil.ReadFile error immediately", func() {
 			expectedError := errors.New("ioutil.ReadFile error")
@@ -226,7 +227,7 @@ var _ = Describe("pkg def file_regular.go unit test", func() {
 		})
 		It("will return nil error in case of success (rather than VerificationErrors with empty list)", func() {
 			regular := def.Regular{}
-			regular.Size = 2736
+			regular.Size = 20
 			regular.Seed = 18
 			actualError := regular.Verify("does not matter")
 			Expect(actualError).ShouldNot(HaveOccurred())

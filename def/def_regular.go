@@ -13,6 +13,7 @@ import (
 	"github.com/outo/filefactory/attr"
 	"github.com/outo/filefactory/verify"
 	"github.com/outo/filefactory/diff"
+	"math"
 )
 
 type Regular struct {
@@ -112,9 +113,11 @@ func (f Regular) Verify(root string) (err error) {
 		}
 		expectedBytes := ProvidePseudoRandomBytes(f.Size, f.Seed)
 		if !bytes.Equal(actualBytes, expectedBytes) {
-			verr.Add(diff.Contents, f.Path, errors.New(fmt.Sprintf("base64(bytes[:50) for expected %s, actual %s",
-				base64.StdEncoding.EncodeToString(expectedBytes[:50]),
-				base64.StdEncoding.EncodeToString(actualBytes[:50]),
+			expectedBytesSampleLength := int(math.Min(50, float64(len(expectedBytes))))
+			actualBytesSampleLength := int(math.Min(50, float64(len(actualBytes))))
+			verr.Add(diff.Contents, absolutePath, errors.New(fmt.Sprintf("base64(bytes[:<=50]) for expected %s, actual %s",
+				base64.StdEncoding.EncodeToString(expectedBytes[:expectedBytesSampleLength]),
+				base64.StdEncoding.EncodeToString(actualBytes[:actualBytesSampleLength]),
 			)))
 		}
 	}

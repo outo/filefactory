@@ -4,6 +4,8 @@
 
 ## What is it?
 
+Small testing framework. 
+
 Provides declarative means to describe (define) filesystem primitives such as Regular files, Directories and Symlinks.
 These definitions will be used to create real files and verify that real files exists with specific attributes.  
 

@@ -4,7 +4,10 @@ title: File Factory
 
 description: small filesystem testing framework
 
-remote_theme: pages-themes/cayman@ad70028dd1aa491c4024da33eed0191c6806e7ea
+remote_theme: outo/cayman@ad70028dd1aa491c4024da33eed0191c6806e7ea
+
+plugins:
+  - jekyll-remote-theme
 
 #
 # Flags below are optional
@@ -31,4 +34,3 @@ footer-links:
 google_analytics: UA-110137727-1
 
 
-theme: jekyll-theme-architect

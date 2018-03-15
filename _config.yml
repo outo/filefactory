@@ -4,7 +4,7 @@ title: File Factory
 
 description: small filesystem testing framework
 
-remote_theme: outo/cayman
+remote_theme: outo/cayman@ad70028dd1aa491c4024da33eed0191c6806e7ea
 
 #
 # Flags below are optional

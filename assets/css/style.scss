@@ -1,11 +1,11 @@
-//---
-//---
-//
-//@import "{{ site.remote_theme }}";
-//.page-header {
-//  background-image: linear-gradient(120deg, #969996, #857625);
-//}
-//
-//#tgt {
-//  color: green;
-//}
+---
+---
+
+@import "jekyll-theme-cayman";
+.page-header {
+  background-image: linear-gradient(120deg, #969996, #857625);
+}
+
+#tgt {
+  color: green;
+}

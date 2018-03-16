@@ -335,4 +335,4 @@ I cannot guarantee stability as it is fairly fresh package and I expect further 
 
 Please review the tests, they document all features.
 
-<span id="tgt">test</span>
+
